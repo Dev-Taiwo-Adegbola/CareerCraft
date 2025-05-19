@@ -1,0 +1,29 @@
+@import "tailwindcss";
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+@theme {
+  --color-background: var(--background);
+  --color-text: var(--text);
+}
+
+:root {
+  --background: #f9fafb;
+  --text: #111827;
+  --bordercolor: #001b45;
+}
+
+.dark {
+  --background: #001b45;
+  --text: #f8fafc;
+  --bordercolor: #f8fafce5c;
+}
+button {
+  cursor: pointer;
+  transition: 0.2s linear;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
