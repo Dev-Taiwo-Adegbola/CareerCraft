@@ -146,15 +146,15 @@ const ChatPage = ({ jobRole, myName }) => {
   }
 
   return (
-    <div className="lg:w-[60%] mx-auto mt-10">
-      <div className="bg-white dark:bg-gray-900 h-[70vh] rounded-xl p-6 shadow">
-        <div className="space-y-4 max-h-[400px]  overflow-y-auto flex flex-col">
+    <div className="w-full max-md:absolute  -z-1 inset-0  lg:w-[60%] md:mt-10 md:h-[70vh]  md:mx-auto  ">
+      <div className="bg-white  dark:bg-gray-900 h-full  rounded-xl max-md:mt-18 p-1 shadow">
+        <div className="space-y-4 max-h-[90%] p-1 lg:p-4  overflow-y-auto flex flex-col">
           {messages.map((msg) => (
             <div
               className={`text-sm p-3 rounded-lg max-w-[75%] ${
                 msg.sender === "user"
-                  ? "bg-blue-100 dark:bg-blue-900 self-end w-fit"
-                  : "bg-gray-200 dark:bg-gray-700  w-fit"
+                  ? "bg-blue-100 dark:bg-blue-900 self-end w-fit text-slate-100"
+                  : "bg-gray-200 dark:bg-gray-700  w-fit text-slate-100"
               }`}
             >
               {msg.sender === "user" ? (
@@ -172,9 +172,8 @@ const ChatPage = ({ jobRole, myName }) => {
             </div>
           ))}
         </div>
-         
       </div>
-      <div className="mt-4 flex items-center gap-2 w-[90%] md:w-[60%] mx-auto">
+      <div className="bg-gray-100 max-md:fixed max-md:inset-x-0 max-md:bottom-0   flex items-center gap-2  px-1 md:w-[60%] lg:mx-auto lg:mt-3 ">
         {startChat ? (
           <>
             <textarea
