@@ -35,8 +35,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home themeToggle={themeToggle} />} />
           <Route path="/advisor" element={<AdvisorPage />} />
-          {/* <Route path="/ai_generator" element={<AI_generator />} /> */}
-          {/* <Route path="/ai_generator/generate" element={<AI_generatorForm />} /> */}
+          <Route path="/ai_generator" element={<AI_generator />} />
+          <Route path="/ai_generator/generate" element={<AI_generatorForm />} />
           <Route
             path="/interview_prep/chat"
             element={<ChatPage jobRole={jobRole} myName={myName} />}

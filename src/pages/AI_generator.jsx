@@ -195,11 +195,18 @@ import html2pdf from "html2pdf.js";
 
 const AI_generator = () => {
   const [jobTitle, setJobTitle] = useState("");
+
+  const [fullName, setFullName] = useState("");
+  const [address, setAddress] = useState("");
+  const [ComAddress, setComAddress] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [experience, setExperience] = useState("");
   const [style, setStyle] = useState("Formal");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+  let date = new Date().toLocaleDateString();
 
   const letterRef = useRef(null);
 
@@ -218,11 +225,11 @@ const AI_generator = () => {
             {
               role: "system",
               content:
-                "You are a career assistant who writes professional cover letters.",
+                "You are a career assistant who writes professional cover letters. use only the information provided, do not fillable spaces",
             },
             {
               role: "user",
-              content: `Job Title: ${jobTitle}\nCompany: ${company}\nExperience: ${experience}\nStyle: ${style}`,
+              content: ` Name: ${fullName}\nAddress: ${address}\nJob Title: ${jobTitle}\nCompany: ${company}\nCompany Address: ${ComAddress}\nExperience: ${experience}\nEmail: ${email}\nPhone Number: ${phoneNo}\nStyle: ${style}\nDate: ${date}`,
             },
           ],
         }),
@@ -242,9 +249,16 @@ const AI_generator = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 text-gray-800 dark:text-gray-100">
-      <h1 className="text-3xl font-bold mb-4">Cover Letter Generator</h1>
-      <div className="grid gap-4">
+    <div className="  mx-auto p-6 text-gray-800 dark:text-gray-100 lg:flex justify-between gap-x-5  w-full">
+      <div className="grid gap-4 w-[40%]">
+        <h1 className="text-3xl font-bold mb-4">Cover Letter Generator</h1>
+        <input
+          type="text"
+          placeholder="Full Name"
+          className="p-2 border rounded"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+        />
         <input
           type="text"
           placeholder="Job Title"
@@ -254,10 +268,39 @@ const AI_generator = () => {
         />
         <input
           type="text"
+          placeholder="Your Address"
+          className="p-2 border rounded"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+
+        <input
+          type="text"
           placeholder="Company"
           className="p-2 border rounded"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Company Address"
+          className="p-2 border rounded"
+          value={ComAddress}
+          onChange={(e) => setComAddress(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Phone No."
+          className="p-2 border rounded"
+          value={phoneNo}
+          onChange={(e) => setPhoneNo(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Your email"
+          className="p-2 border rounded"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <textarea
           placeholder="Your Experience..."
@@ -284,23 +327,32 @@ const AI_generator = () => {
         </button>
       </div>
 
-      {result && (<>
-        <h2 className="text-xl font-semibold mt-5 mb-2">Generated Cover Letter</h2>
+      <div className="w-[60%] grid place-items-center">
+        {result ? (
+          <>
+            <h2 className="text-xl font-semibold mt-5 mb-2">
+              Generated Cover Letter
+            </h2>
 
-        <div
-          className="mt-8 bg-white dark:bg-slate-900 p-6 rounded shadow"
-          ref={letterRef}
-        >
-          <pre className="whitespace-pre-wrap text-sm">{result}</pre>
-        </div>
-          <button
-            onClick={downloadPDF}
-            className="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-          >
-            Download PDF
-          </button>
-        </>
-      )}
+            <div
+              className="mt-8 bg-white dark:bg-slate-900 p-6 rounded shadow"
+              ref={letterRef}
+            >
+              <pre className="whitespace-pre-wrap text-md font-[inter] px-4 ">
+                {result}
+              </pre>
+            </div>
+            <button
+              onClick={downloadPDF}
+              className="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+            >
+              Download PDF
+            </button>
+          </>
+        ) : (
+          <p>Generated Cover letter will Appear here </p>
+        )}
+      </div>
     </div>
   );
 };

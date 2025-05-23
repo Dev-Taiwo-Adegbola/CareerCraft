@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Compass, Bot, Send, User2 } from "lucide-react";
 import { BotAnimation } from "./AdvisorPage";
 import { Link } from "react-router";
+import styled from "styled-components";
 
 export const ChatPageForm = ({
   onsetJobRole,
@@ -90,20 +91,36 @@ export const ChatPageForm = ({
   );
 };
 
+const TypingIndicator = styled.div`
+  & div:nth-of-type(2) {
+    animation-delay: 0.3s;
+  }
+
+  & div:nth-of-type(3) {
+    animation-delay: 0.6s;
+  }
+`;
+
 const ChatPage = ({ jobRole, myName }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [startChat, setStartChat] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
+
   async function sendMessage() {
     const newMessages = [...messages, { sender: "user", content: input }];
     setMessages(newMessages);
     setInput("");
-    const SYSTEM_PROMPT = `You are a professional interviewer. Conduct a mock interview for the role of a [${jobRole}]. Ask questions one at a time, wait for responses, and provide constructive feedback. my name is ${myName}`;
+    const SYSTEM_PROMPT = `my name is ${myName}, You are a professional interviewer. Conduct a mock interview for the role of a [${jobRole}]. Ask questions one at a time, wait for responses, and provide constructive feedback. The interview should be in sessions, Each session should have 5 Questions each, Each session should be  graded on confidence, clarity, and relevance after finishing the session. the interviewed should have the opportunity to either opt-out or continugooe after each session `;
+    setLoading(true);
     try {
       console.log("data");
-      setLoading(true);
       const response = await fetch(
         "https://openrouter.ai/api/v1/chat/completions",
         {
@@ -171,9 +188,18 @@ const ChatPage = ({ jobRole, myName }) => {
               {msg.content}
             </div>
           ))}
+          {loading && (
+            <TypingIndicator className="flex items-center gap-2 text-gray-500 dark:text-gray-400 px-4">
+              <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
+              <div className="w-2 h-2 bg-current rounded-full animate-bounce " />
+              <div className="w-2 h-2 bg-current rounded-full animate-bounce " />
+              <span className="ml-2 text-sm">CareerCraft AI is typing...</span>
+            </TypingIndicator>
+          )}
+          <div ref={bottomRef} />
         </div>
       </div>
-      <div className="bg-gray-100 max-md:fixed max-md:inset-x-0 max-md:bottom-0   flex items-center gap-2  px-1 md:w-[60%] lg:mx-auto lg:mt-3 ">
+      <div className="max-md:bg-gray-900 max-md:fixed max-md:inset-x-0 max-md:bottom-0  max-md:pb-2   flex items-center gap-2  px-1 md:w-[60%] lg:mx-auto lg:mt-3 ">
         {startChat ? (
           <>
             <textarea

@@ -87,7 +87,7 @@ const AdvisorPage = () => {
     <>
       <main className="flex gap-10 items-center">
         <div className="px-2 flex flex-col gap-y-5 mt-10 md:w-[500px] mx-auto ">
-          {/* <div className="flex items-center gap-x-5">
+          <div className="lg:hidden flex items-center mt-5 gap-x-5">
             <Compass
               className=" bg-blue-500 text-text p-3 rounded-2xl"
               size={60}
@@ -96,7 +96,7 @@ const AdvisorPage = () => {
             <h2 className="text-2xl font-[poppins] font-bold text-text">
               Career Path Advisor
             </h2>
-          </div> */}
+          </div>
           <p className="text-text  text-[15px] ">
             where do you belong? Let AI help you find the right career based on
             your unique strengehs and interests.
@@ -105,7 +105,7 @@ const AdvisorPage = () => {
           <form
             action="#"
             onSubmit={handleSubmit}
-            className="flex flex-col gap-y-4"
+            className="flex flex-col gap-y-10"
           >
             <div>
               <label
@@ -177,7 +177,7 @@ const AdvisorPage = () => {
             <Bot size={38} />
           </BotAnimation>
         </div>
-        <div className=" flex flex-col grow -mt-8 h-[80vh]  ">
+        <div className=" hidden lg:flex flex-col grow -mt-8 h-[80vh] max-w-[60%] overflow-y-auto  ">
           <div className="flex items-center gap-x-5 border-b-1 pb-3">
             <Compass
               className=" bg-blue-500 text-text p-3 rounded-2xl"

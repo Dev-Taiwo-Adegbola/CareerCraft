@@ -5,17 +5,25 @@
 
 @theme {
   --color-background: var(--background);
+  --color-backgroundO: var(--backgroundO);
   --color-text: var(--text);
+  --color-textO: var(--textO);
+  --color-border: var(--bordercolor);
 }
 
 :root {
   --background: #f9fafb;
+  --backgroundO: #001b45;
+
   --text: #111827;
+  --textO: #f8fafc;
   --bordercolor: #001b45;
 }
 
 .dark {
   --background: #001b45;
+  --backgroundO: #f9fafb;
+  --textO: #111827;
   --text: #f8fafc;
   --bordercolor: #f8fafce5c;
 }
@@ -23,7 +31,7 @@ button {
   cursor: pointer;
   transition: 0.2s linear;
 
-  &:hover {
+  /* &:hover {
     transform: scale(1.1);
-  }
+  } */
 }

@@ -2,9 +2,9 @@ import React from "react";
 import logo1 from "../assets/careercraft.webp";
 import logo2 from "../assets/careercraftW.webp";
 
-const Logo = ({ type }) => {
+const Logo = ({ type, menuToggle }) => {
   return (
-    <div className="size-fit flex items-center gap-2">
+    <div className="size-fit flex items-center gap-2 relative z-10">
       <img
         className="w-[60px]  "
         src={type === "light" ? logo1 : logo2}
