@@ -9,7 +9,7 @@ import AI_generator, { AI_generatorForm } from "./pages/AI_generator";
 function sysTheme() {
   const systemTheme = window.matchMedia("(prefers-color-scheme:dark)").matches;
   if (systemTheme) {
-    return localStorage.getItem("theme") === "dark";
+    return true;
   } else return localStorage.getItem("theme") === "dark";
 }
 
