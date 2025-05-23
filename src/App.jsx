@@ -6,15 +6,21 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import ChatPage, { ChatPageForm } from "./pages/ChatPage";
 import AI_generator, { AI_generatorForm } from "./pages/AI_generator";
 
+function sysTheme() {
+  const systemTheme = window.matchMedia("(prefers-color-scheme:dark)").matches;
+  if (systemTheme) {
+    return localStorage.getItem("theme") === "dark";
+  } else return localStorage.getItem("theme") === "dark";
+}
+
 function App() {
   const [jobRole, setJobRole] = useState("");
   const [myName, setMyName] = useState("");
-  const [themeToggle, setThemeToggle] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
-  });
+  const [themeToggle, setThemeToggle] = useState(() => sysTheme());
 
   useEffect(() => {
     const root = window.document.documentElement;
+
     if (themeToggle === true) {
       root.classList.add("dark");
       localStorage.setItem("theme", "dark");
