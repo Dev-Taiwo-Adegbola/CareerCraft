@@ -84,7 +84,7 @@ export const ChatPageForm = ({
           <Bot size={48} />
         </BotAnimation>
       </div>
-      <div className="relative bottom-0 inset-x-0 pt-6 pb-3 -mx-6 md:-mx-10 text-center text-xs text-slate-100 dark:bg-slate-900">
+      <div className="relative bottom-0 inset-x-0 pt-6 pb-3 -mx-6 md:-mx-10 text-center text-xs text-slate-100  bg-slate-900">
         © {new Date().getFullYear()} CareerCraft. All rights reserved.
       </div>
     </div>
@@ -164,14 +164,14 @@ const ChatPage = ({ jobRole, myName }) => {
 
   return (
     <div className="w-full max-md:absolute  -z-1 inset-0  lg:w-[60%] md:mt-10 md:h-[70vh]  md:mx-auto  ">
-      <div className="bg-white  dark:bg-gray-900 h-full  rounded-xl max-md:mt-18 p-1 shadow">
+      <div className=" bg-gray-900 h-full  rounded-xl max-md:mt-18 p-1 shadow">
         <div className="space-y-4 max-h-[90%] p-1 lg:p-4  overflow-y-auto flex flex-col">
           {messages.map((msg) => (
             <div
               className={`text-sm p-3 rounded-lg max-w-[75%] ${
                 msg.sender === "user"
-                  ? "bg-blue-100 dark:bg-blue-900 self-end w-fit text-slate-100"
-                  : "bg-gray-200 dark:bg-gray-700  w-fit text-slate-100"
+                  ? "bg-blue-100  bg-blue-900 self-end w-fit text-slate-100"
+                  : "bg-gray-200  bg-gray-700  w-fit text-slate-100"
               }`}
             >
               {msg.sender === "user" ? (
@@ -189,7 +189,7 @@ const ChatPage = ({ jobRole, myName }) => {
             </div>
           ))}
           {loading && (
-            <TypingIndicator className="flex items-center gap-2 text-gray-500 dark:text-gray-400 px-4">
+            <TypingIndicator className="flex items-center gap-2 text-gray-500  text-gray-400 px-4">
               <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
               <div className="w-2 h-2 bg-current rounded-full animate-bounce " />
               <div className="w-2 h-2 bg-current rounded-full animate-bounce " />
@@ -207,7 +207,7 @@ const ChatPage = ({ jobRole, myName }) => {
               placeholder="send message here"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 outline-0  border rounded-full h-fit resize-none px-3 py-2 dark:bg-gray-800 dark:text-white place"
+              className="flex-1 outline-0  border rounded-full h-fit resize-none px-3 py-2  bg-gray-800 text-white place"
             />
             <button
               onClick={sendMessage}

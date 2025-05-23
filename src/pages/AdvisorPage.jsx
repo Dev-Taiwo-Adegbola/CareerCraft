@@ -218,7 +218,7 @@ const AdvisorPage = () => {
         </div>
         </div>
       </main>
-      <div className=" pt-6 pb-3 -mx-6 md:-mx-10 text-center text-xs text-slate-100 dark:bg-slate-900">
+      <div className=" pt-6 pb-3 -mx-6 md:-mx-10 text-center text-xs text-slate-100  bg-slate-900">
         © {new Date().getFullYear()} CareerCraft. All rights reserved.
       </div>
     </>

@@ -180,7 +180,7 @@ export const AI_generatorForm = () => {
 //           </button>
 //         </Link>
 //       </div>
-//       <div className="absolute bottom-0 inset-x-0 pt-6 pb-3 -mx-6 md:-mx-10 text-center text-xs text-slate-100 dark:bg-slate-900">
+//       <div className="absolute bottom-0 inset-x-0 pt-6 pb-3 -mx-6 md:-mx-10 text-center text-xs text-slate-100 bg-slate-900">
 //         © {new Date().getFullYear()} CareerCraft. All rights reserved.
 //       </div>
 //     </>
@@ -249,8 +249,8 @@ const AI_generator = () => {
   };
 
   return (
-    <div className="  mx-auto p-6 text-gray-800 dark:text-gray-100 lg:flex justify-between gap-x-5  w-full">
-      <div className="grid gap-4 w-[40%]">
+    <div className="  mx-auto p-6  text-text lg:flex justify-between gap-x-5  w-full">
+      <div className="grid gap-4 w-[40%] border-bordercolor">
         <h1 className="text-3xl font-bold mb-4">Cover Letter Generator</h1>
         <input
           type="text"
@@ -327,7 +327,7 @@ const AI_generator = () => {
         </button>
       </div>
 
-      <div className="w-[60%] grid place-items-center">
+      <div className="w-[60%] grid place">
         {result ? (
           <>
             <h2 className="text-xl font-semibold mt-5 mb-2">
@@ -335,10 +335,10 @@ const AI_generator = () => {
             </h2>
 
             <div
-              className="mt-8 bg-white dark:bg-slate-900 p-6 rounded shadow"
+              className="mt-8 bg-backgroundO p-6 rounded shadow"
               ref={letterRef}
             >
-              <pre className="whitespace-pre-wrap text-md font-[inter] px-4 ">
+              <pre className="whitespace-pre-wrap text-md text-textO font-[inter] px-4 ">
                 {result}
               </pre>
             </div>
