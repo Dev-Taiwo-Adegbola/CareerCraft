@@ -20,6 +20,10 @@ function App() {
 
   useEffect(() => {
     const root = window.document.documentElement;
+    root.classList.add("dark");
+  }, []);
+  useEffect(() => {
+    const root = window.document.documentElement;
 
     if (themeToggle === true) {
       root.classList.add("dark");
