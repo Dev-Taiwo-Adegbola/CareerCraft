@@ -1,10 +1,12 @@
 import React from "react";
 import logo1 from "../assets/careercraft.webp";
 import logo2 from "../assets/careercraftW.webp";
+import { Link } from "react-router";
 
 const Logo = ({ type, menuToggle }) => {
   return (
-    <div className="size-fit flex items-center gap-2 relative z-10">
+     <Link to={"/"}>
+      <div className="cursor-pointer size-fit flex items-center gap-2 relative z-10">
       <img
         className="w-[60px]  "
         src={type === "light" ? logo1 : logo2}
@@ -18,6 +20,7 @@ const Logo = ({ type, menuToggle }) => {
         CareerCraft
       </h1>
     </div>
+     </Link>
   );
 };
 

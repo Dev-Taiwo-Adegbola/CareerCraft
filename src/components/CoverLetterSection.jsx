@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const CoverLetterSection = () => {
   return (
@@ -44,11 +45,13 @@ const CoverLetterSection = () => {
             <span className="h-1.5 w-[90%] bg-backgroundO/20 rounded"></span>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button className="px-4  py-2 bg-backgroundO w-fit rounded text-[14px] font-medium text-textO mr-3">
-              {" "}
-              Generate CoverLetter
-            </button>
-            <button className="px-4 py-2 bg-backgroundO w-fit rounded text-[14px] font-medium text-textO">
+            <Link to={"/ai_generator"}>
+              <button className="hover:scale-105 px-4  py-2 bg-backgroundO w-fit rounded text-[14px] font-medium text-textO mr-3">
+                {" "}
+                Generate CoverLetter
+              </button>
+            </Link>
+            <button className="  hover:scale-105 px-4 py-2 bg-backgroundO w-fit rounded text-[14px] font-medium text-textO">
               Reveiw CV
             </button>
           </div>

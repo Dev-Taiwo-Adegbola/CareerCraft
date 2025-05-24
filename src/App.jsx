@@ -5,6 +5,7 @@ import NavigationBar from "./components/NavigationBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import ChatPage, { ChatPageForm } from "./pages/ChatPage";
 import AI_generator, { AI_generatorForm } from "./pages/AI_generator";
+import JobForMe from "./pages/JobForMe";
 
 function sysTheme() {
   const systemTheme = window.matchMedia("(prefers-color-scheme:dark)").matches;
@@ -47,6 +48,7 @@ function App() {
           <Route path="/advisor" element={<AdvisorPage />} />
           <Route path="/ai_generator" element={<AI_generator />} />
           <Route path="/ai_generator/generate" element={<AI_generatorForm />} />
+          <Route path="/job-for-me" element={<JobForMe />} />
           <Route
             path="/interview_prep/chat"
             element={<ChatPage jobRole={jobRole} myName={myName} />}

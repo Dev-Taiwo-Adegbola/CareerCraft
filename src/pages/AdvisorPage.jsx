@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Bot, Compass } from "lucide-react";
+import { ArrowLeft, Bot, Compass } from "lucide-react";
 import styled from "styled-components";
 import { getCareerAdvice } from "../../API/apis";
 import d from "../assets/bot.svg";
@@ -61,12 +61,14 @@ const AdvisorPage = () => {
   const [interest, setInterest] = useState([]);
   const [educationalLevel, setEducationalLevel] = useState("");
   const [preferredIndustries, setPreferredIndustries] = useState("");
+  const [mobileToggle, setMobileToggle] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [advice, setAdvice] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setMobileToggle(true);
     let inputs = {
       skills: skills,
       interest: interest,
@@ -85,8 +87,8 @@ const AdvisorPage = () => {
 
   return (
     <>
-      <main className="flex gap-10 items-center">
-        <div className="px-2 flex flex-col gap-y-5 mt-10 md:w-[500px] mx-auto ">
+      <main className="flex lg:gap-10  items-center">
+        <div className="px-2 flex flex-col gap-y-5 mt-8 md:w-[500px] mx-auto ">
           <div className="lg:hidden flex items-center mt-5 gap-x-5">
             <Compass
               className=" bg-blue-500 text-text p-3 rounded-2xl"
@@ -146,11 +148,14 @@ const AdvisorPage = () => {
                 Educational Level
               </label>
               <select
+                disabled
                 onChange={(e) => setEducationalLevel(e.target.value)}
                 value={educationalLevel}
-                placeholder="e.g. marketing, healthcare"
+                placeholder="disabled"
                 className="w-full h-11 text-text pl-4 rounded border border-bordercolor"
-              ></select>
+              >
+                <option value="">disabled</option>
+              </select>
             </div>
             <div>
               <label
@@ -160,9 +165,10 @@ const AdvisorPage = () => {
                 Preferred Industries
               </label>
               <input
+                disabled
                 onChange={(e) => setPreferredIndustries(e.target.value)}
                 value={preferredIndustries}
-                placeholder="e.g. marketing, healthcare"
+                placeholder="disabled"
                 type="text"
                 className="w-full h-11 pl-4 text-text rounded border border-bordercolor"
               />
@@ -177,45 +183,46 @@ const AdvisorPage = () => {
             <Bot size={38} />
           </BotAnimation>
         </div>
-        <div className=" hidden lg:flex flex-col grow -mt-8 h-[80vh] max-w-[60%] overflow-y-auto  ">
-          <div className="flex items-center gap-x-5 border-b-1 pb-3">
-            <Compass
-              className=" bg-blue-500 text-text p-3 rounded-2xl"
-              size={60}
-              color="#f8fafc"
-            />
-            <h2 className="text-2xl font-[poppins] font-bold text-text">
-              Career Path Advisor
-            </h2>
-          </div>
-        <div className="hidden   lg:grid bg-background   border-bordercolor h-[60vh]    lg:max-w-[full]   place-items-center">
-          
-          {loading === true ? (
-            <BotAnimation className="flex gap-x-10 mx-auto my-10 animate-pulse">
-              <Bot size={28} />
+        <div
+          className={` ${
+            mobileToggle &&
+            "max-lg:absolute   left-0 p-2 top-30 max-lg:block max-lg:bg-background max-lg:w-full max-lg-border h-[100vh]"
+          } hidden lg:flex flex-col grow -mt-8 h-[80vh] lg:max-w-[60%] overflow-y-auto  `}
+        >
+          <button
+            onClick={() => {
+              setMobileToggle(false);
+            }}
+          >
+            <ArrowLeft size={38} />
+          </button>
+          <div className=" w-full   lg:grid bg-background   border-bordercolor h-[60vh]    lg:max-w-[full]   place-items-center">
+            {loading === true ? (
+              <BotAnimation className="flex gap-x-10 mx-auto my-10 animate-pulse">
+                <Bot size={28} />
 
-              <Bot size={28} />
-              <Bot size={28} />
-            </BotAnimation>
-          ) : advice === "" ? (
-            <p className="text-2xl text-text ">
-              Your Career Path Advice will Show here!{" "}
-            </p>
-          ) : (
-            <div>
-              <h2 className="text-xl font-bold text-text text-center ">
-                Here are your Career Suggestions
-              </h2>
-              <AiResponse
-                className="text-md text-text "
-                dangerouslySetInnerHTML={{ __html: advice }}
-              />
-              {/* {" "}
+                <Bot size={28} />
+                <Bot size={28} />
+              </BotAnimation>
+            ) : advice === "" ? (
+              <p className="text-2xl text-text ">
+                Your Career Path Advice will Show here!{" "}
+              </p>
+            ) : (
+              <div className="  w-full">
+                <h2 className="text-xl font-bold text-text text-center ">
+                  Here are your Career Suggestions
+                </h2>
+                <AiResponse
+                  className="text-md text-text  "
+                  dangerouslySetInnerHTML={{ __html: advice }}
+                />
+                {/* {" "}
               {advice}
             </p> */}
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
         </div>
       </main>
       <div className=" pt-6 pb-3 -mx-6 md:-mx-10 text-center text-xs text-slate-100  bg-slate-900">

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Logo from "./Logo";
 import styled from "styled-components";
 import { Moon, Sun } from "lucide-react";
+import { Link } from "react-router";
 
 const ThemeToggleBtn = styled.button`
   border: 2px solid var(--backgroundO);
@@ -133,9 +134,15 @@ const NavigationBar = ({ themeToggle, onThemeToggle }) => {
         <Logo menuToggle={menuToggle} type={themeToggle ? "dark" : "light"} />
         <nav className="flex md:w-[45%] items-center   justify-between pr-[30px] md:pr-[50px]">
           <ul className="hidden md:flex md:w-[60%] font-[inter] text-[0.93rem] justify-between text-text   ">
-            <li>Plan</li>
-            <li>Apply</li>
-            <li>Interview</li>
+            <Link to={"/advisor"}>
+              <li>Discover</li>
+            </Link>
+            <Link to={"/job-for-me"}>
+              <li>Apply</li>
+            </Link>
+            <Link to={"/interview_prep"}>
+              <li>Interview</li>
+            </Link>
           </ul>
           <Menu
             className=" p-3 flex md:hidden"
@@ -167,10 +174,16 @@ const NavigationBar = ({ themeToggle, onThemeToggle }) => {
       </div>
       {menuToggle === true && (
         <div className=" fixed inset-0  grid place-items-center bg-background/50  backdrop-blur-3xl z-10">
-          <ul className=" flex flex-col gap-y-10 text-center font-[inter] text-[1.1rem] justify-between text-text   ">
-            <li>Plan</li>
-            <li>Apply</li>
-            <li>Interview</li>
+          <ul className=" cursor-pointer flex flex-col gap-y-10 text-center font-[inter] text-[1.1rem] justify-between text-text   ">
+            <Link to={"/advisor"}>
+              <li>Discover</li>
+            </Link>
+            <Link to={"/job-for-me"}>
+              <li>Apply</li>
+            </Link>
+            <Link to={"/interview_prep"}>
+              <li>Interview</li>
+            </Link>
           </ul>
           <ThemeToggleBtn themeToggle={themeToggle} onClick={onThemeToggle}>
             {" "}

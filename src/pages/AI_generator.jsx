@@ -192,9 +192,11 @@ export const AI_generatorForm = () => {
 // 📁 src/pages/CoverLetterGenerator.jsx
 import { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
+import { ArrowLeft } from "lucide-react";
 
 const AI_generator = () => {
   const [jobTitle, setJobTitle] = useState("");
+  const [mobileToggle, setMobileToggle] = useState(false);
 
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
@@ -211,6 +213,7 @@ const AI_generator = () => {
   const letterRef = useRef(null);
 
   const generateLetter = async () => {
+    setMobileToggle(true);
     setLoading(true);
     try {
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -249,8 +252,8 @@ const AI_generator = () => {
   };
 
   return (
-    <div className="  mx-auto p-6  text-text lg:flex justify-between gap-x-5  w-full">
-      <div className="grid gap-4 w-[40%] border-bordercolor">
+    <div className=" flex max-lg:flex-col mx-auto p-6  text-text lg:flex justify-between gap-x-5  w-full">
+      <div className="grid gap-4 w-full lg:w-[40%] border-bordercolor">
         <h1 className="text-3xl font-bold mb-4">Cover Letter Generator</h1>
         <input
           type="text"
@@ -327,9 +330,21 @@ const AI_generator = () => {
         </button>
       </div>
 
-      <div className="w-[60%] grid place">
+      <div
+        className={` ${
+          mobileToggle &&
+          "max-lg:absolute left-0 p-2 max-lg:block max-lg:bg-background max-lg:w-full   max-mad:h-[80vh]"
+        } hidden lg:flex flex-col grow -mt-8   lg:max-w-[60%] overflow-y-auto  `}
+      >
         {result ? (
-          <>
+          <div className="bg-background">
+            <button
+              onClick={() => {
+                setMobileToggle(false);
+              }}
+            >
+              <ArrowLeft size={38} />
+            </button>
             <h2 className="text-xl font-semibold mt-5 mb-2">
               Generated Cover Letter
             </h2>
@@ -348,7 +363,7 @@ const AI_generator = () => {
             >
               Download PDF
             </button>
-          </>
+          </div>
         ) : (
           <p>Generated Cover letter will Appear here </p>
         )}
