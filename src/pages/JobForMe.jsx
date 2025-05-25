@@ -203,7 +203,7 @@ const JobForMe = () => {
                     return (
                       <div
                         key={i}
-                        className=" grow p-3 w-[260px]  shadow rounded-xl h-[250px]    bg-backgroundO/20 "
+                        className=" grow p-3 w-[260px] min-h-fit shadow rounded-xl h-[250px]    bg-backgroundO/20 "
                       >
                         <h3 className="text-xl mb-2 text-text font-[poppins] font-bold ">
                           Job Title: {e.job_title}
