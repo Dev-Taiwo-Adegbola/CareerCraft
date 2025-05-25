@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import AdvisorPage from "./pages/AdvisorPage";
 import NavigationBar from "./components/NavigationBar";
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route, 
+} from "react-router";
 import ChatPage, { ChatPageForm } from "./pages/ChatPage";
 import AI_generator, { AI_generatorForm } from "./pages/AI_generator";
 import JobForMe from "./pages/JobForMe";
@@ -15,6 +19,8 @@ function sysTheme() {
 }
 
 function App() {
+  
+
   const [jobRole, setJobRole] = useState("");
   const [myName, setMyName] = useState("");
   const [themeToggle, setThemeToggle] = useState(() => sysTheme());

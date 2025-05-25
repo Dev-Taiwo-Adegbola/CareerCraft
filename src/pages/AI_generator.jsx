@@ -1,6 +1,6 @@
-// import { FileText } from "lucide-react";
-// import React from "react";
-// import { Link } from "react-router";
+import { FileText } from "lucide-react";
+import React from "react";
+import { Link } from "react-router";
 
 export const AI_generatorForm = () => {
   return (
@@ -208,41 +208,61 @@ const AI_generator = () => {
   const [style, setStyle] = useState("Formal");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
+
   let date = new Date().toLocaleDateString();
 
   const letterRef = useRef(null);
 
   const generateLetter = async () => {
-    setMobileToggle(true);
-    setLoading(true);
-    try {
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "meta-llama/llama-3.3-8b-instruct:free",
-          messages: [
-            {
-              role: "system",
-              content:
-                "You are a career assistant who writes professional cover letters. use only the information provided, do not fillable spaces",
+    if (
+      !fullName ||
+      !address ||
+      !ComAddress ||
+      !phoneNo ||
+      !email ||
+      !company ||
+      !experience ||
+      !jobTitle
+    ) {
+      setError("All fields are required, Please Enter a valid entry");
+    } else {
+      setError("");
+      setMobileToggle(true);
+      setLoading(true);
+      try {
+        const res = await fetch(
+          "https://openrouter.ai/api/v1/chat/completions",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+              "Content-Type": "application/json",
             },
-            {
-              role: "user",
-              content: ` Name: ${fullName}\nAddress: ${address}\nJob Title: ${jobTitle}\nCompany: ${company}\nCompany Address: ${ComAddress}\nExperience: ${experience}\nEmail: ${email}\nPhone Number: ${phoneNo}\nStyle: ${style}\nDate: ${date}`,
-            },
-          ],
-        }),
-      });
-      const data = await res.json();
-      setResult(data.choices[0].message.content);
-    } catch (error) {
-      console.error("Error generating letter:", error);
-    } finally {
-      setLoading(false);
+            body: JSON.stringify({
+              model: "meta-llama/llama-3.3-8b-instruct:free",
+              messages: [
+                {
+                  role: "system",
+                  content:
+                    "You are a career assistant who writes professional cover letters. use only the information provided, do not fillable spaces",
+                },
+                {
+                  role: "user",
+                  content: ` Name: ${fullName}\nAddress: ${address}\nJob Title: ${jobTitle}\nCompany: ${company}\nCompany Address: ${ComAddress}\nExperience: ${experience}\nEmail: ${email}\nPhone Number: ${phoneNo}\nStyle: ${style}\nDate: ${date}`,
+                },
+              ],
+            }),
+          }
+        );
+        const data = await res.json();
+        setResult(data.choices[0].message.content);
+      } catch (error) {
+        console.error("Error generating letter:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -255,6 +275,8 @@ const AI_generator = () => {
     <div className=" flex max-lg:flex-col mx-auto p-6  text-text lg:flex justify-between gap-x-5  w-full">
       <div className="grid gap-4 w-full lg:w-[40%] border-bordercolor">
         <h1 className="text-3xl font-bold mb-4">Cover Letter Generator</h1>
+
+        <p className="text-sm text-red-400">{error}</p>
         <input
           type="text"
           placeholder="Full Name"

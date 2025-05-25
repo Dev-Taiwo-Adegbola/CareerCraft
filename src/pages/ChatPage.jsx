@@ -3,6 +3,7 @@ import { Compass, Bot, Send, User2 } from "lucide-react";
 import { BotAnimation } from "./AdvisorPage";
 import { Link } from "react-router";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 export const ChatPageForm = ({
   onsetJobRole,
@@ -12,9 +13,18 @@ export const ChatPageForm = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [advice, setAdvice] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (!jobRole || !myName) {
+      setError("All fields are required, Please Enter a valid entry");
+    } else {
+      setError("");
+
+      navigate("/interview_prep/chat");
+    }
   }
 
   return (
@@ -40,6 +50,7 @@ export const ChatPageForm = ({
           onSubmit={handleSubmit}
           className="flex flex-col gap-y-4"
         >
+          <p className="text-sm text-red-400">{error}</p>
           <div>
             <label
               className="text-lg text-text font-bold font-[inter]"
@@ -72,11 +83,9 @@ export const ChatPageForm = ({
             />
           </div>
 
-          <Link to="/interview_prep/chat">
-            <button className="w-full h-15 text-text rounded bg-blue-500 border-bordercolor">
-              Start Interview
-            </button>
-          </Link>
+          <button className="w-full h-15 text-text rounded bg-blue-500 border-bordercolor">
+            Start Interview
+          </button>
         </form>
         <BotAnimation className="flex gap-x-10 mx-auto my-10 animate-pulse">
           <Bot size={48} />
@@ -170,8 +179,8 @@ const ChatPage = ({ jobRole, myName }) => {
             <div
               className={`text-sm p-3 rounded-lg max-w-[75%] ${
                 msg.sender === "user"
-                  ? "bg-blue-100  bg-blue-900 self-end w-fit text-slate-100"
-                  : "bg-gray-200  bg-gray-700  w-fit text-slate-100"
+                  ? "   bg-blue-900 self-end w-fit text-slate-100"
+                  : "   bg-gray-700  w-fit text-slate-100"
               }`}
             >
               {msg.sender === "user" ? (
@@ -189,7 +198,7 @@ const ChatPage = ({ jobRole, myName }) => {
             </div>
           ))}
           {loading && (
-            <TypingIndicator className="flex items-center gap-2 text-gray-500  text-gray-400 px-4">
+            <TypingIndicator className="flex items-center gap-2 text-gray-500    px-4">
               <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
               <div className="w-2 h-2 bg-current rounded-full animate-bounce " />
               <div className="w-2 h-2 bg-current rounded-full animate-bounce " />
@@ -210,6 +219,7 @@ const ChatPage = ({ jobRole, myName }) => {
               className="flex-1 outline-0  border rounded-full h-fit resize-none px-3 py-2  bg-gray-800 text-white place"
             />
             <button
+              disabled={!input}
               onClick={sendMessage}
               className="bg-blue-600 text-white p-4  rounded-full"
             >

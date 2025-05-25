@@ -62,26 +62,32 @@ const AdvisorPage = () => {
   const [educationalLevel, setEducationalLevel] = useState("");
   const [preferredIndustries, setPreferredIndustries] = useState("");
   const [mobileToggle, setMobileToggle] = useState(false);
+  const [error, setError] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [advice, setAdvice] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setMobileToggle(true);
-    let inputs = {
-      skills: skills,
-      interest: interest,
-      educationalLevel: educationalLevel,
-      preferredIndustries: preferredIndustries,
-    };
-    try {
-      setLoading(true);
-      const result = await getCareerAdvice(inputs);
-      setAdvice(result);
-    } catch (error) {
-    } finally {
-      setLoading(false);
+    if (!skills || !interest) {
+      setError("All fields are required, Please Enter a valid entry");
+    } else {
+      setError("");
+      setMobileToggle(true);
+      let inputs = {
+        skills: skills,
+        interest: interest,
+        educationalLevel: educationalLevel,
+        preferredIndustries: preferredIndustries,
+      };
+      try {
+        setLoading(true);
+        const result = await getCareerAdvice(inputs);
+        setAdvice(result);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
@@ -109,6 +115,7 @@ const AdvisorPage = () => {
             onSubmit={handleSubmit}
             className="flex flex-col gap-y-10"
           >
+            <p className="text-sm text-red-400">{error}</p>
             <div>
               <label
                 className="text-md text-text font-bold font-[inter]"

@@ -3,6 +3,7 @@ import { ArrowLeft, Bot, BriefcaseBusiness, Compass } from "lucide-react";
 import styled from "styled-components";
 import { getStatesFromApi, fetchJobs } from "../../API/apis";
 import d from "../assets/bot.svg";
+
 const AiResponse = styled.div`
   overflow-y: auto;
   & li {
@@ -66,6 +67,7 @@ const JobForMe = () => {
 
   const [loading, setLoading] = useState(false);
   const [advice, setAdvice] = useState([]);
+  const [error, setError] = useState("");
 
   async function getStates(params) {
     const nga_states = await getStatesFromApi();
@@ -78,16 +80,22 @@ const JobForMe = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setMobileToggle(true);
 
-    try {
-      setLoading(true);
-      const result = await fetchJobs(jobTitle, location);
-      setAdvice(result);
-      console.log(result);
-    } catch (error) {
-    } finally {
-      setLoading(false);
+    if (!jobTitle) {
+      setError("All fields are required, Please Enter a valid entry");
+    } else {
+      setMobileToggle(true);
+      setError("");
+
+      try {
+        setLoading(true);
+        const result = await fetchJobs(jobTitle, location);
+        setAdvice(result);
+        console.log(result);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
@@ -115,6 +123,7 @@ const JobForMe = () => {
             onSubmit={handleSubmit}
             className="flex flex-col gap-y-10"
           >
+            <p className="text-sm text-red-400">{error}</p>
             <div>
               <label
                 className="text-md text-text font-bold font-[inter]"
